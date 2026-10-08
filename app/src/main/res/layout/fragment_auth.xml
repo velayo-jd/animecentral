@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/ac_bg"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingHorizontal="28dp"
+        android:paddingVertical="40dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="56dp"
+                android:layout_height="56dp"
+                android:contentDescription="Anime Central logo"
+                android:src="@drawable/ac_logo" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="14dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="serif"
+                    android:includeFontPadding="false"
+                    android:letterSpacing="0.12"
+                    android:text="ANIME"
+                    android:textColor="@color/ac_text"
+                    android:textSize="24sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="serif"
+                    android:includeFontPadding="false"
+                    android:letterSpacing="0.12"
+                    android:text="CENTRAL"
+                    android:textColor="@color/ac_text"
+                    android:textSize="24sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/auth_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="36dp"
+            android:textColor="@color/ac_text"
+            android:textSize="22sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/auth_subtitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:textColor="@color/ac_text_dim"
+            android:textSize="14sp" />
+
+        <EditText
+            android:id="@+id/input_username"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:layout_marginTop="12dp"
+            android:background="@drawable/ac_auth_field"
+            android:hint="Username"
+            android:inputType="text"
+            android:maxLines="1"
+            android:paddingHorizontal="20dp"
+            android:textColor="@color/ac_text"
+            android:textColorHint="@color/ac_text_hint"
+            android:textSize="15sp" />
+
+
+        <EditText
+            android:id="@+id/input_email"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:layout_marginTop="12dp"
+            android:background="@drawable/ac_auth_field"
+            android:hint="Email"
+            android:inputType="textEmailAddress"
+            android:maxLines="1"
+            android:paddingHorizontal="20dp"
+            android:textColor="@color/ac_text"
+            android:textColorHint="@color/ac_text_hint"
+            android:textSize="15sp" />
+
+        <EditText
+            android:id="@+id/input_password"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:layout_marginTop="12dp"
+            android:background="@drawable/ac_auth_field"
+            android:hint="Password"
+            android:inputType="textPassword"
+            android:maxLines="1"
+            android:paddingHorizontal="20dp"
+            android:textColor="@color/ac_text"
+            android:textColorHint="@color/ac_text_hint"
+            android:textSize="15sp" />
+
+        <EditText
+            android:id="@+id/input_confirm"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:layout_marginTop="12dp"
+            android:background="@drawable/ac_auth_field"
+            android:hint="Confirm password"
+            android:inputType="textPassword"
+            android:maxLines="1"
+            android:paddingHorizontal="20dp"
+            android:textColor="@color/ac_text"
+            android:textColorHint="@color/ac_text_hint"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/auth_error"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:textColor="#FF6B6B"
+            android:textSize="13sp"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/forgot_password"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:padding="4dp"
+            android:text="Forgot password?"
+            android:textColor="@color/ac_text_dim"
+            android:textSize="13sp" />
+
+        <TextView
+            android:id="@+id/auth_button"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:layout_marginTop="18dp"
+            android:background="@drawable/ac_auth_button"
+            android:clickable="true"
+            android:focusable="true"
+            android:gravity="center"
+            android:textColor="@color/ac_btn_text"
+            android:textSize="15sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:gravity="center"
+            android:text="or"
+            android:textColor="#8A8A8A"
+            android:textSize="13sp" />
+
+        <TextView
+            android:id="@+id/google_button"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:layout_marginTop="12dp"
+            android:background="@drawable/ac_auth_outline"
+            android:clickable="true"
+            android:focusable="true"
+            android:gravity="center"
+            android:text="Continue with Google"
+            android:textColor="@color/ac_text"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/auth_switch"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:gravity="center"
+            android:padding="8dp"
+            android:textColor="@color/ac_text"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/auth_guest"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="8dp"
+            android:text="Continue as guest"
+            android:textColor="@color/ac_text_dim"
+            android:textSize="14sp" />
+    </LinearLayout>
+</ScrollView>

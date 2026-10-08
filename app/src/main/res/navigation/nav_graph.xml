@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/home">
+
+    <!-- Bottom navigation tabs: home, videos, history, settings (ids match bottom_nav_menu.xml).
+         search and profile are reached from the top bar. -->
+    <fragment
+        android:id="@+id/home"
+        android:name="com.example.animecentralapp.ui.fragments.HomeFragment" />
+
+    <fragment
+        android:id="@+id/videos"
+        android:name="com.example.animecentralapp.ui.fragments.VideosFragment" />
+
+    <!-- Opened with a Bundle: tag (a type like "Movie" or a genre like "Mystery") -->
+    <fragment
+        android:id="@+id/tag_browse"
+        android:name="com.example.animecentralapp.ui.fragments.TagFragment" />
+
+    <!-- Opened with a Bundle: kind = "genre" or "type" (lists every genre / every type) -->
+    <fragment
+        android:id="@+id/all_tags"
+        android:name="com.example.animecentralapp.ui.fragments.AllTagsFragment" />
+
+    <!-- History tab: Watch History, Continue Watching and Favorites rows -->
+    <fragment
+        android:id="@+id/history"
+        android:name="com.example.animecentralapp.ui.fragments.HistoryFragment" />
+
+    <!-- "See all" lists. Opened with a Bundle: mode =
+         favorites | history | continue | airing | completed -->
+    <fragment
+        android:id="@+id/collection"
+        android:name="com.example.animecentralapp.ui.fragments.CollectionFragment" />
+
+    <fragment
+        android:id="@+id/settings"
+        android:name="com.example.animecentralapp.ui.fragments.SettingsFragment" />
+
+    <!-- Log in / Sign up: both use AuthFragment (it checks which one it is) -->
+    <fragment
+        android:id="@+id/login"
+        android:name="com.example.animecentralapp.ui.fragments.AuthFragment" />
+
+    <fragment
+        android:id="@+id/signup"
+        android:name="com.example.animecentralapp.ui.fragments.AuthFragment" />
+
+    <fragment
+        android:id="@+id/search"
+        android:name="com.example.animecentralapp.ui.fragments.SearchFragment" />
+
+    <fragment
+        android:id="@+id/profile"
+        android:name="com.example.animecentralapp.ui.fragments.ProfileFragment" />
+
+    <!-- Opened with a Bundle: animeId (and episodeId for watch) -->
+    <fragment
+        android:id="@+id/details"
+        android:name="com.example.animecentralapp.ui.fragments.DetailsFragment" />
+
+    <fragment
+        android:id="@+id/watch"
+        android:name="com.example.animecentralapp.ui.fragments.WatchFragment" />
+</navigation>

@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Shared top bar: hamburger (opens the side menu), logo, search. Add it to every page with
+     <include android:id="@+id/top_bar" layout="@layout/layout_top_bar" /> -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="56dp"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:paddingHorizontal="16dp">
+
+    <ImageView
+        android:id="@+id/menu_btn"
+        android:layout_width="28dp"
+        android:layout_height="28dp"
+        android:contentDescription="Menu"
+        android:src="@drawable/ic_menu" />
+
+    <!-- Logo + name: "ANIME" stacked on top of "CENTRAL" -->
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_marginStart="12dp"
+        android:layout_weight="1"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:contentDescription="Anime Central logo"
+            android:src="@drawable/ac_logo" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="serif"
+                android:includeFontPadding="false"
+                android:letterSpacing="0.12"
+                android:text="ANIME"
+                android:textColor="@color/ac_text"
+                android:textSize="15sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="serif"
+                android:includeFontPadding="false"
+                android:letterSpacing="0.12"
+                android:text="CENTRAL"
+                android:textColor="@color/ac_text"
+                android:textSize="15sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/search_icon"
+        android:layout_width="28dp"
+        android:layout_height="28dp"
+        android:contentDescription="Search"
+        android:src="@drawable/ic_search" />
+</LinearLayout>

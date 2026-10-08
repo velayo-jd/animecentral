@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="10dp"
+    android:background="@drawable/ac_row_bg"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/dropdown_header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/selectableItemBackground"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:padding="10dp">
+
+        <ImageView
+            android:id="@+id/dropdown_icon"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:background="@drawable/ac_square_bg"
+            android:contentDescription="@null"
+            android:padding="8dp" />
+
+        <TextView
+            android:id="@+id/dropdown_title"
+            android:layout_width="0dp"
+            android:layout_height="36dp"
+            android:layout_marginStart="10dp"
+            android:layout_weight="1"
+            android:background="@drawable/ac_row_pill"
+            android:gravity="center_vertical"
+            android:paddingHorizontal="14dp"
+            android:textColor="@color/ac_text"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/dropdown_arrow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingStart="10dp"
+            android:text="▾"
+            android:textColor="@color/ac_text_dim"
+            android:textSize="16sp" />
+    </LinearLayout>
+
+    <!-- The links are added here by MainActivity -->
+    <LinearLayout
+        android:id="@+id/dropdown_body"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingBottom="6dp"
+        android:visibility="gone" />
+</LinearLayout>
