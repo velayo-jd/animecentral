@@ -205,6 +205,17 @@
                         android:textColor="@color/ac_text_dim"
                         android:textSize="13sp" />
 
+                    <ImageView
+                        android:id="@+id/sort_episodes_btn"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_marginStart="4dp"
+                        android:background="?attr/selectableItemBackgroundBorderless"
+                        android:contentDescription="Reverse episode order"
+                        android:padding="8dp"
+                        android:src="@drawable/ic_sort_arrows"
+                        android:tint="@color/ac_text_dim" />
+
                     <!-- Admins only: add an episode -->
                     <ImageView
                         android:id="@+id/add_episode_btn"

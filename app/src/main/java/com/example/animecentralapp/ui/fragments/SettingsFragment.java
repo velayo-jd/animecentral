@@ -95,6 +95,16 @@ public class SettingsFragment extends Fragment {
                 "Content Notice",
                 "Only content that its owner has the right to share should be added to "
                         + "this app."));
+        addRow(binding.sectionTwoRows, "Content Notice", "›", () -> showInfo(
+                "Content Notice",
+                "Only content that its owner has the right to share should be added to "
+                        + "this app."));
+
+        // Admin only: manual "Add anime" page
+        if (com.example.animecentralapp.util.AdminAccess.isAdmin()) {
+            addRow(binding.sectionTwoRows, "Add anime", "›", () ->
+                    NavHostFragment.findNavController(this).navigate(R.id.add_anime));
+        }
     }
 
     @Override

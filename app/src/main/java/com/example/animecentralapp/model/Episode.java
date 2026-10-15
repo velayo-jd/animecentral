@@ -12,6 +12,11 @@ public class Episode {
     private String rumbleId;    // e.g. "v70bqqu" (from the embed link, not the page URL)
     private String rumblePub;   // optional, the "pub=" value from Rumble's embed code
 
+    private String youtubeId;   // e.g. "dQw4w9WgXcQ"
+
+    public String getYoutubeId() { return youtubeId; }
+    public void setYoutubeId(String youtubeId) { this.youtubeId = youtubeId; }
+
     public String getRumbleId() { return rumbleId; }
     public String getRumblePub() { return rumblePub; }
     public void setRumbleId(String rumbleId) { this.rumbleId = rumbleId; }

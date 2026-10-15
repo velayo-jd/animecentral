@@ -1,0 +1,340 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/ac_bg"
+    android:orientation="vertical">
+
+    <include
+        android:id="@+id/top_bar"
+        layout="@layout/layout_top_bar" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingHorizontal="16dp"
+            android:paddingBottom="32dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Add anime"
+                android:textColor="@color/ac_text"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:text="Admin only. Episodes are added from the anime's Details page."
+                android:textColor="@color/ac_text_dim"
+                android:textSize="14sp" />
+
+            <!-- Title -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="18dp"
+                android:text="Title *"
+                android:textColor="@color/ac_text"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/anime_title"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_marginTop="6dp"
+                android:background="@drawable/ac_search_field"
+                android:hint="e.g. Frieren: Beyond Journey's End"
+                android:inputType="textCapWords"
+                android:maxLines="1"
+                android:paddingHorizontal="14dp"
+                android:textColor="@color/ac_text"
+                android:textColorHint="@color/ac_text_hint"
+                android:textSize="15sp" />
+
+            <!-- Tagline -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="18dp"
+                android:text="Tagline (optional)"
+                android:textColor="@color/ac_text"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/anime_tagline"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_marginTop="6dp"
+                android:background="@drawable/ac_search_field"
+                android:hint="One short line"
+                android:inputType="textCapSentences"
+                android:maxLines="1"
+                android:paddingHorizontal="14dp"
+                android:textColor="@color/ac_text"
+                android:textColorHint="@color/ac_text_hint"
+                android:textSize="15sp" />
+
+            <!-- Synopsis -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="18dp"
+                android:text="Synopsis"
+                android:textColor="@color/ac_text"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/anime_synopsis"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:background="@drawable/ac_search_field"
+                android:gravity="top|start"
+                android:hint="What's it about?"
+                android:inputType="textMultiLine|textCapSentences"
+                android:minHeight="110dp"
+                android:padding="14dp"
+                android:textColor="@color/ac_text"
+                android:textColorHint="@color/ac_text_hint"
+                android:textSize="15sp" />
+
+            <!-- Genres -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="18dp"
+                android:text="Genres"
+                android:textColor="@color/ac_text"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/anime_genres"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_marginTop="6dp"
+                android:background="@drawable/ac_search_field"
+                android:hint="Separate with commas: Action, Fantasy"
+                android:inputType="textCapWords"
+                android:maxLines="1"
+                android:paddingHorizontal="14dp"
+                android:textColor="@color/ac_text"
+                android:textColorHint="@color/ac_text_hint"
+                android:textSize="15sp" />
+
+            <!-- Type + Status pickers -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="18dp"
+                android:text="Format"
+                android:textColor="@color/ac_text"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/anime_type"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_marginTop="6dp"
+                android:background="@drawable/ac_search_field"
+                android:clickable="true"
+                android:focusable="true"
+                android:gravity="center_vertical"
+                android:paddingHorizontal="14dp"
+                android:text="Anime  ▾"
+                android:textColor="@color/ac_text"
+                android:textSize="15sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="18dp"
+                android:text="Status"
+                android:textColor="@color/ac_text"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/anime_status"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_marginTop="6dp"
+                android:background="@drawable/ac_search_field"
+                android:clickable="true"
+                android:focusable="true"
+                android:gravity="center_vertical"
+                android:paddingHorizontal="14dp"
+                android:text="Completed  ▾"
+                android:textColor="@color/ac_text"
+                android:textSize="15sp" />
+
+            <!-- Episodes + Year -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="18dp"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Episodes"
+                        android:textColor="@color/ac_text"
+                        android:textSize="14sp"
+                        android:textStyle="bold" />
+
+                    <EditText
+                        android:id="@+id/anime_episodes"
+                        android:layout_width="match_parent"
+                        android:layout_height="48dp"
+                        android:layout_marginTop="6dp"
+                        android:background="@drawable/ac_search_field"
+                        android:hint="12"
+                        android:inputType="number"
+                        android:maxLines="1"
+                        android:paddingHorizontal="14dp"
+                        android:textColor="@color/ac_text"
+                        android:textColorHint="@color/ac_text_hint"
+                        android:textSize="15sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Year"
+                        android:textColor="@color/ac_text"
+                        android:textSize="14sp"
+                        android:textStyle="bold" />
+
+                    <EditText
+                        android:id="@+id/anime_year"
+                        android:layout_width="match_parent"
+                        android:layout_height="48dp"
+                        android:layout_marginTop="6dp"
+                        android:background="@drawable/ac_search_field"
+                        android:hint="2024"
+                        android:inputType="number"
+                        android:maxLength="4"
+                        android:maxLines="1"
+                        android:paddingHorizontal="14dp"
+                        android:textColor="@color/ac_text"
+                        android:textColorHint="@color/ac_text_hint"
+                        android:textSize="15sp" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <!-- Poster -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="18dp"
+                android:text="Poster link (portrait)"
+                android:textColor="@color/ac_text"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/anime_poster"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_marginTop="6dp"
+                android:background="@drawable/ac_search_field"
+                android:hint="https://..."
+                android:inputType="textUri"
+                android:maxLines="1"
+                android:paddingHorizontal="14dp"
+                android:textColor="@color/ac_text"
+                android:textColorHint="@color/ac_text_hint"
+                android:textSize="15sp" />
+
+            <!-- Banner -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="18dp"
+                android:text="Banner link (wide, optional)"
+                android:textColor="@color/ac_text"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/anime_banner"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_marginTop="6dp"
+                android:background="@drawable/ac_search_field"
+                android:hint="https://..."
+                android:inputType="textUri"
+                android:maxLines="1"
+                android:paddingHorizontal="14dp"
+                android:textColor="@color/ac_text"
+                android:textColorHint="@color/ac_text_hint"
+                android:textSize="15sp" />
+
+            <!-- Recommended -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="18dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Recommended (pin to the hero banner)"
+                    android:textColor="@color/ac_text"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+                <androidx.appcompat.widget.SwitchCompat
+                    android:id="@+id/anime_recommended"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/save_anime_btn"
+                android:layout_width="match_parent"
+                android:layout_height="52dp"
+                android:layout_marginTop="28dp"
+                android:background="@drawable/ac_details_btn"
+                android:clickable="true"
+                android:focusable="true"
+                android:gravity="center"
+                android:text="Add anime"
+                android:textColor="@color/ac_on_accent"
+                android:textSize="15sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

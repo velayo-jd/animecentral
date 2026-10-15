@@ -51,9 +51,20 @@ public class Anime {
     public String getStatus() { return status; }
     public void setStatus(String status) { this.status = status; }
 
-    private long addedAt;
+    private long addedAt;   // milliseconds since 1970; 0 = unknown
+
     public long getAddedAt() { return addedAt; }
-    public void setAddedAt(long addedAt) { this.addedAt = addedAt; }
+
+    // Accepts a Firestore Timestamp (what the import writes) or a plain number (older documents)
+    public void setAddedAt(Object value) {
+        if (value instanceof com.google.firebase.Timestamp) {
+            addedAt = ((com.google.firebase.Timestamp) value).toDate().getTime();
+        } else if (value instanceof Number) {
+            addedAt = ((Number) value).longValue();
+        } else {
+            addedAt = 0;
+        }
+    }
 
     public boolean isRecommended() { return recommended; }
     public void setRecommended(boolean recommended) { this.recommended = recommended; }

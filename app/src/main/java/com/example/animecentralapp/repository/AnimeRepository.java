@@ -64,13 +64,13 @@ public class AnimeRepository {
     public LiveData<List<Anime>> searchAnime(String query) {
         MutableLiveData<List<Anime>> searchResults = new MutableLiveData<>();
         FirebaseUtil.getFirestore().collection(ANIME_COLLECTION)
-                .whereEqualTo("status", "Airing")
                 .addSnapshotListener((value, error) -> {
                     List<Anime> results = new ArrayList<>();
                     if (error != null || value == null) {
                         searchResults.setValue(results);
                         return;
                     }
+                    String q = query == null ? "" : query.toLowerCase();
                     for (DocumentSnapshot doc : value.getDocuments()) {
                         Anime anime = null;
                         try {
@@ -79,7 +79,8 @@ public class AnimeRepository {
                             android.util.Log.w("AnimeRepository",
                                     "Skipping bad anime document " + doc.getId() + ": " + e.getMessage());
                         }
-                        if (anime != null && anime.getTitle().toLowerCase().contains(query.toLowerCase())) {
+                        if (anime != null && anime.getTitle() != null
+                                && anime.getTitle().toLowerCase().contains(q)) {
                             anime.setId(doc.getId());
                             results.add(anime);
                         }

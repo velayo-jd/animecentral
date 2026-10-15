@@ -342,13 +342,52 @@ public class WatchFragment extends Fragment {
         }
     }
 
+    private void loadYoutube(String videoId) {
+        if (binding == null) return;
+        if (!videoId.matches("[A-Za-z0-9_-]{11}")) {
+            Toast.makeText(getContext(), "This episode has no valid YouTube ID.",
+                    Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        String origin = "https://" + requireContext().getPackageName();
+
+        String html = "<!DOCTYPE html><html><head>"
+                + "<meta name='viewport' content='width=device-width, initial-scale=1'>"
+                + "<style>html,body{margin:0;height:100%;background:#000}"
+                + "#player{position:absolute;top:0;left:0;width:100%;height:100%;border:0}</style>"
+                + "</head><body><div id='player'></div>"
+                + "<script src='https://www.youtube.com/iframe_api'></script>"
+                + "<script>"
+                + "var player;"
+                + "function onYouTubeIframeAPIReady(){"
+                + "  player = new YT.Player('player', {"
+                + "    videoId: '" + videoId + "',"
+                + "    playerVars: { autoplay: 1, playsinline: 1, rel: 0, modestbranding: 1,"
+                + "                  origin: '" + origin + "' },"
+                + "    events: {"
+                + "      onStateChange: function(e){ if (e.data === 0) Android.onEnded(); },"
+                + "      onError: function(e){ Android.onError('yt-' + e.data); }"
+                + "    }"
+                + "  });"
+                + "}"
+                + "</script></body></html>";
+
+        binding.vimeoWebView.loadDataWithBaseURL(origin, html, "text/html", "UTF-8", null);
+    }
+
     private void loadVideo() {
         if (binding == null || currentIndex < 0 || currentIndex >= episodes.size()) return;
-
         Episode ep = episodes.get(currentIndex);
+
+        String yt = ep.getYoutubeId() == null ? "" : ep.getYoutubeId().trim();
+        if (!yt.isEmpty()) {
+            loadYoutube(yt);
+            return;
+        }
+
         String id = ep.getVimeoId() == null ? "" : ep.getVimeoId().trim();
         String hash = ep.getVimeoHash() == null ? "" : ep.getVimeoHash().trim();
-
         // Only digits for the id and letters/digits for the hash, so nothing odd ends up in the HTML
         if (!id.matches("\\d+") || (!hash.isEmpty() && !hash.matches("[A-Za-z0-9]+"))) {
             if (getContext() != null) {

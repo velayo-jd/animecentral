@@ -79,4 +79,8 @@
     <fragment
         android:id="@+id/add_episode"
         android:name="com.example.animecentralapp.ui.fragments.AddEpisodeFragment" />
+
+    <fragment
+        android:id="@+id/add_anime"
+        android:name="com.example.animecentralapp.ui.fragments.AddAnimeFragment" />
 </navigation>

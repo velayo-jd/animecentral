@@ -10,6 +10,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.example.animecentralapp.util.YouTubeUtil;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
@@ -158,18 +160,35 @@ public class AddEpisodeFragment extends Fragment {
         if (binding == null) return;
         String text = binding.videoInput.getText().toString();
         VimeoUtil.Parsed p = VimeoUtil.parse(text);
+        String yt = p == null ? YouTubeUtil.parseId(text) : null;   // Vimeo is tried first
+
         if (text.trim().isEmpty()) {
-            setVideoStatus("Paste a Vimeo link or the video ID.", false);
-        } else if (p == null) {
-            setVideoStatus("That doesn't look like a Vimeo video link.", true);
-        } else {
+            setVideoStatus("Paste a Vimeo or YouTube link, or the video ID.", false);
+        } else if (p != null) {
             setVideoStatus("Vimeo video " + p.id
                     + (p.hash != null ? " (unlisted link detected)" : ""), false);
+        } else if (yt != null) {
+            setVideoStatus("YouTube video " + yt, false);
+        } else {
+            setVideoStatus("That doesn't look like a Vimeo or YouTube link.", true);
         }
+
         if (pendingLookup != null) main.removeCallbacks(pendingLookup);
-        if (p == null || fillingProgrammatically) return;
+        if (fillingProgrammatically) return;
+        if (yt != null) { fillYoutubeThumbnail(yt); return; }
+        if (p == null) return;
         pendingLookup = () -> lookupThumbnail(p);
         main.postDelayed(pendingLookup, 600);
+    }
+
+    /** Same rule as the Vimeo lookup: don't overwrite a thumbnail the user typed themselves. */
+    private void fillYoutubeThumbnail(String id) {
+        String current = binding.thumbInput.getText().toString().trim();
+        if (!current.isEmpty() && !thumbWasAutoFilled) return;
+        fillingProgrammatically = true;
+        binding.thumbInput.setText(YouTubeUtil.thumbnailUrl(id));
+        fillingProgrammatically = false;
+        thumbWasAutoFilled = true;
     }
 
     private void setVideoStatus(String text, boolean error) {
@@ -186,6 +205,11 @@ public class AddEpisodeFragment extends Fragment {
         if (!current.isEmpty() && !thumbWasAutoFilled) return;
         VimeoUtil.fetchThumbnail(p, url -> {
             if (binding == null || url == null) return;
+
+            // The field may have changed to another video while Vimeo was answering
+            VimeoUtil.Parsed still = VimeoUtil.parse(binding.videoInput.getText().toString());
+            if (still == null || !still.id.equals(p.id)) return;
+
             String now = binding.thumbInput.getText().toString().trim();
             if (!now.isEmpty() && !thumbWasAutoFilled) return;
             fillingProgrammatically = true;
@@ -224,9 +248,13 @@ public class AddEpisodeFragment extends Fragment {
             binding.episodeNumber.setError("Episode " + number + " already exists");
             return;
         }
-        VimeoUtil.Parsed p = VimeoUtil.parse(binding.videoInput.getText().toString());
-        if (p == null) {
-            binding.videoInput.setError("Paste a Vimeo link or ID");
+
+        // Vimeo is tried first, then YouTube
+        String raw = binding.videoInput.getText().toString();
+        VimeoUtil.Parsed p = VimeoUtil.parse(raw);
+        String yt = p == null ? YouTubeUtil.parseId(raw) : null;
+        if (p == null && yt == null) {
+            binding.videoInput.setError("Paste a Vimeo or YouTube link or ID");
             return;
         }
 
@@ -236,10 +264,17 @@ public class AddEpisodeFragment extends Fragment {
 
         Map<String, Object> data = new HashMap<>();
         data.put("number", number);
-        data.put("vimeoId", p.id);
         // Optional fields: empty means "leave out" when adding, "remove" when editing
+        if (yt != null) {
+            data.put("youtubeId", yt);
+            data.put("vimeoId", editing ? FieldValue.delete() : null);     // switch source cleanly
+            data.put("vimeoHash", editing ? FieldValue.delete() : null);
+        } else {
+            data.put("vimeoId", p.id);
+            data.put("vimeoHash", p.hash != null ? p.hash : (editing ? FieldValue.delete() : null));
+            data.put("youtubeId", editing ? FieldValue.delete() : null);
+        }
         data.put("title", !title.isEmpty() ? title : (editing ? FieldValue.delete() : null));
-        data.put("vimeoHash", p.hash != null ? p.hash : (editing ? FieldValue.delete() : null));
         data.put("thumbnailUrl", !thumb.isEmpty() ? thumb : (editing ? FieldValue.delete() : null));
         if (!editing) data.values().removeIf(v -> v == null);
 

@@ -66,6 +66,7 @@ public class DetailsFragment extends Fragment {
     private List<Episode> episodes = new ArrayList<>();
     private EpisodeAdapter episodeAdapter;
     private boolean synopsisExpanded = false;
+    private boolean newestFirst = false;   // list display only; "episodes" stays in normal order
     private boolean transitionStarted = false;
 
     @Override
@@ -148,6 +149,12 @@ public class DetailsFragment extends Fragment {
         binding.episodesRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         binding.episodesRecyclerView.setAdapter(episodeAdapter);
         binding.episodesRecyclerView.setNestedScrollingEnabled(false);
+        binding.sortEpisodesBtn.setOnClickListener(v -> {
+            newestFirst = !newestFirst;
+            showEpisodes();
+            Toast.makeText(requireContext(),
+                    newestFirst ? "Newest first" : "Oldest first", Toast.LENGTH_SHORT).show();
+        });
         refreshStates();
 
         // Swipe right = watched on/off, swipe left = bookmark on/off
@@ -194,7 +201,7 @@ public class DetailsFragment extends Fragment {
 
         episodeViewModel.getEpisodes(animeId).observe(getViewLifecycleOwner(), list -> {
             episodes = list == null ? new ArrayList<>() : list;
-            episodeAdapter.submitList(new ArrayList<>(episodes));
+            showEpisodes();
             binding.noEpisodesText.setVisibility(episodes.isEmpty() ? View.VISIBLE : View.GONE);
             binding.episodeCount.setText(episodes.isEmpty() ? "" : episodes.size() + " available");
             updateResume();
@@ -210,6 +217,7 @@ public class DetailsFragment extends Fragment {
             openWatch(target.getId());
         });
     }
+
 
     @Override
     public void onResume() {
@@ -286,6 +294,13 @@ public class DetailsFragment extends Fragment {
         if (transitionStarted || !isAdded()) return;
         transitionStarted = true;
         startPostponedEnterTransition();
+    }
+
+    /** Sends the episodes to the list, in the chosen direction. */
+    private void showEpisodes() {
+        List<Episode> shown = new ArrayList<>(episodes);
+        if (newestFirst) java.util.Collections.reverse(shown);
+        episodeAdapter.submitList(shown);
     }
 
     // ---------- Synopsis (3 lines, last one fades, chevron expands) ----------
