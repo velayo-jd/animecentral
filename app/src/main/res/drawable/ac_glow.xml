@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Soft blue glow centred just right of the logo's moon (top-left), fading to nothing.
+     Used as the foreground of the main screen area, so it never blocks touches. -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android" android:shape="rectangle">
+    <gradient
+        android:centerColor="@color/ac_glow_mid"
+        android:centerX="0.14"
+        android:centerY="0.02"
+        android:endColor="@color/ac_glow_end"
+        android:gradientRadius="90%"
+        android:startColor="@color/ac_glow_start"
+        android:type="radial" />
+</shape>

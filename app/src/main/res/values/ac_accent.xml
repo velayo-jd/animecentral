@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="ac_accent">#1E3A8A</color>
+    <color name="ac_on_accent">#FFFFFF</color>
+    <color name="ac_glow_start">#331E3A8A</color>
+    <color name="ac_glow_mid">#141E3A8A</color>
+    <color name="ac_glow_end">#001E3A8A</color>
+</resources>

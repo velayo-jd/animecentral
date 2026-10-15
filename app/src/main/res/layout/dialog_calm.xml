@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/ac_bg"
+    android:clickable="true"
+    android:focusable="true">
+
+    <ImageView
+        android:id="@+id/calm_logo"
+        android:layout_width="240dp"
+        android:layout_height="240dp"
+        android:layout_gravity="center"
+        android:contentDescription="Anime Central logo"
+        android:src="@drawable/ac_logo" />
+
+    <TextView
+        android:id="@+id/calm_message"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|center_horizontal"
+        android:layout_marginBottom="72dp"
+        android:fontFamily="serif"
+        android:letterSpacing="0.06"
+        android:text="May your nights be ever calm"
+        android:textColor="@color/ac_text_soft"
+        android:textSize="17sp"
+        android:textStyle="italic" />
+</FrameLayout>

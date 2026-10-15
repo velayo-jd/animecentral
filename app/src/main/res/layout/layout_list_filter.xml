@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Shared filter bar: a title search box and (optionally) format toggles.
+     Add it to a screen with <include android:id="@+id/list_filter" layout="@layout/layout_list_filter" />
+     and drive it with util/ListFilterBar.java -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <EditText
+        android:id="@+id/filter_input"
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginVertical="6dp"
+        android:background="@drawable/ac_catalog_field"
+        android:hint="Search"
+        android:imeOptions="actionDone"
+        android:inputType="text"
+        android:maxLines="1"
+        android:paddingHorizontal="16dp"
+        android:textColor="@color/ac_text"
+        android:textColorHint="@color/ac_text_faint"
+        android:textSize="14sp" />
+
+    <HorizontalScrollView
+        android:id="@+id/filter_formats_scroll"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:clipToPadding="false"
+        android:overScrollMode="never"
+        android:paddingHorizontal="16dp"
+        android:paddingVertical="4dp"
+        android:scrollbars="none"
+        android:visibility="gone">
+
+        <LinearLayout
+            android:id="@+id/filter_format_row"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" />
+    </HorizontalScrollView>
+</LinearLayout>

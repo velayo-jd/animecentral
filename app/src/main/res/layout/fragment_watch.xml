@@ -1,0 +1,421 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/ac_bg"
+    android:orientation="vertical">
+
+    <include
+        android:id="@+id/top_bar"
+        layout="@layout/layout_top_bar" />
+
+    <!-- Player: edge to edge, 16:9, with the search box dropping over it -->
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#000000">
+
+        <WebView
+            android:id="@+id/vimeo_web_view"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:background="#000000" />
+
+        <LinearLayout
+            android:id="@+id/watch_search_overlay"
+            android:layout_width="match_parent"
+            android:layout_height="46dp"
+            android:layout_gravity="top"
+            android:layout_margin="8dp"
+            android:background="@drawable/ac_outline_field"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingHorizontal="14dp"
+            android:visibility="gone">
+
+            <ImageView
+                android:layout_width="22dp"
+                android:layout_height="22dp"
+                android:src="@drawable/ic_search" />
+
+            <EditText
+                android:id="@+id/watch_search_input"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginStart="10dp"
+                android:layout_weight="1"
+                android:background="@null"
+                android:hint="Search Anime....."
+                android:imeOptions="actionSearch"
+                android:inputType="text"
+                android:maxLines="1"
+                android:textColor="#FFFFFF"
+                android:textColorHint="#B3B3B3"
+                android:textSize="15sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+    </FrameLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <!-- Everything under the player scrolls -->
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/mode_a_scroll"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fillViewport="true">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingBottom="24dp">
+
+                <!-- Title block -->
+                <TextView
+                    android:id="@+id/watch_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="14dp"
+                    android:layout_marginTop="12dp"
+                    android:textColor="@color/ac_text"
+                    android:textSize="19sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/watch_subtitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="14dp"
+                    android:layout_marginTop="2dp"
+                    android:textColor="@color/ac_text_dim"
+                    android:textSize="13sp" />
+
+                <!-- "Channel" row: poster, anime title, favorite -->
+                <LinearLayout
+                    android:id="@+id/watch_anime_row"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="?attr/selectableItemBackground"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingHorizontal="14dp"
+                    android:paddingVertical="12dp">
+
+                    <com.google.android.material.card.MaterialCardView
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        app:cardBackgroundColor="@color/ac_chip"
+                        app:cardCornerRadius="20dp"
+                        app:cardElevation="0dp"
+                        app:strokeWidth="0dp">
+
+                        <ImageView
+                            android:id="@+id/watch_avatar"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:importantForAccessibility="no"
+                            android:scaleType="centerCrop" />
+                    </com.google.android.material.card.MaterialCardView>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="12dp"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/anime_title_text"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:ellipsize="end"
+                            android:maxLines="1"
+                            android:textColor="@color/ac_text"
+                            android:textSize="15sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/watch_anime_meta"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/ac_text_dim"
+                            android:textSize="12sp" />
+                    </LinearLayout>
+
+                    <ImageView
+                        android:id="@+id/watch_saved_chip"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_marginEnd="8dp"
+                        android:background="@drawable/ac_watch_chip"
+                        android:contentDescription="Save anime"
+                        android:padding="9dp"
+                        android:src="@drawable/ic_saved_outline" />
+
+                    <ImageView
+                        android:id="@+id/watch_fav_chip"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:background="@drawable/ac_watch_chip"
+                        android:contentDescription="Favorite"
+                        android:padding="9dp"
+                        android:src="@drawable/ic_heart_outline" />
+                </LinearLayout>
+
+                <!-- Action chips -->
+                <HorizontalScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:scrollbars="none">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:paddingHorizontal="14dp">
+
+                        <TextView
+                            android:id="@+id/prev_button"
+                            style="@style/AcWatchChipText"
+                            android:background="@drawable/ac_watch_chip"
+                            android:text="⏮  Previous" />
+
+                        <TextView
+                            android:id="@+id/next_button"
+                            style="@style/AcWatchChipText"
+                            android:layout_marginStart="8dp"
+                            android:background="@drawable/ac_watch_chip"
+                            android:text="Next  ⏭" />
+
+                        <TextView
+                            android:id="@+id/autoplay_chip"
+                            style="@style/AcWatchChipText"
+                            android:layout_marginStart="8dp"
+                            android:background="@drawable/ac_watch_chip"
+                            android:text="Autoplay: Off" />
+                    </LinearLayout>
+                </HorizontalScrollView>
+
+                <!-- Comments preview -->
+                <LinearLayout
+                    android:id="@+id/comments_bar"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="14dp"
+                    android:layout_marginTop="14dp"
+                    android:background="@drawable/ac_comments_card"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:orientation="vertical"
+                    android:padding="12dp">
+
+                    <TextView
+                        android:id="@+id/comments_preview_count"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Comments"
+                        android:textColor="@color/ac_text"
+                        android:textSize="14sp"
+                        android:textStyle="bold" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <com.google.android.material.card.MaterialCardView
+                            android:layout_width="26dp"
+                            android:layout_height="26dp"
+                            app:cardBackgroundColor="@color/ac_chip"
+                            app:cardCornerRadius="13dp"
+                            app:cardElevation="0dp"
+                            app:strokeWidth="0dp">
+
+                            <ImageView
+                                android:id="@+id/comments_preview_avatar"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:importantForAccessibility="no"
+                                android:scaleType="centerCrop" />
+                        </com.google.android.material.card.MaterialCardView>
+
+                        <TextView
+                            android:id="@+id/comments_preview_text"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:layout_weight="1"
+                            android:ellipsize="end"
+                            android:maxLines="2"
+                            android:text="Add a comment…"
+                            android:textColor="@color/ac_text_soft"
+                            android:textSize="13sp" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <!-- Episodes -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="14dp"
+                    android:layout_marginTop="18dp"
+                    android:text="Episodes"
+                    android:textColor="@color/ac_text"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/watch_episodes_recycler"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp"
+                    android:nestedScrollingEnabled="false"
+                    android:paddingHorizontal="10dp" />
+
+                <!-- More like this -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="14dp"
+                    android:layout_marginTop="18dp"
+                    android:text="More like this"
+                    android:textColor="@color/ac_text"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recs_recycler"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:nestedScrollingEnabled="false"
+                    android:paddingHorizontal="8dp" />
+            </LinearLayout>
+        </androidx.core.widget.NestedScrollView>
+
+        <!-- Comments (full view, replaces the scroll area) -->
+        <LinearLayout
+            android:id="@+id/comments_card"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/ac_bg"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <LinearLayout
+                android:id="@+id/comments_header"
+                android:layout_width="match_parent"
+                android:layout_height="52dp"
+                android:background="?attr/selectableItemBackground"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingHorizontal="16dp">
+
+                <TextView
+                    android:id="@+id/comments_count"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="0 Comments"
+                    android:textColor="@color/ac_text"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="✕"
+                    android:textColor="@color/ac_text_dim"
+                    android:textSize="18sp" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/ac_divider" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/comments_recycler_view"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:paddingHorizontal="16dp"
+                android:paddingTop="8dp"
+                android:clipToPadding="false" />
+
+            <LinearLayout
+                android:id="@+id/reply_banner"
+                android:layout_width="match_parent"
+                android:layout_height="36dp"
+                android:background="@color/ac_row"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingHorizontal="16dp"
+                android:visibility="gone">
+
+                <TextView
+                    android:id="@+id/reply_banner_text"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:textColor="@color/ac_text_dim"
+                    android:textSize="13sp" />
+
+                <TextView
+                    android:id="@+id/reply_banner_cancel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="6dp"
+                    android:text="✕"
+                    android:textColor="@color/ac_text_dim"
+                    android:textSize="16sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:padding="10dp">
+
+                <EditText
+                    android:id="@+id/comment_input"
+                    android:layout_width="0dp"
+                    android:layout_height="44dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/ac_watch_chip"
+                    android:hint="Add a comment…"
+                    android:imeOptions="actionSend"
+                    android:inputType="textCapSentences"
+                    android:maxLines="1"
+                    android:paddingHorizontal="16dp"
+                    android:paddingVertical="10dp"
+                    android:textColor="@color/ac_text"
+                    android:textColorHint="@color/ac_text_faint"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/post_comment_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="44dp"
+                    android:layout_marginStart="8dp"
+                    android:background="@drawable/ac_watch_chip_on"
+                    android:gravity="center"
+                    android:paddingHorizontal="18dp"
+                    android:text="Post"
+                    android:textColor="@color/ac_on_accent"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+        </LinearLayout>
+    </FrameLayout>
+</LinearLayout>

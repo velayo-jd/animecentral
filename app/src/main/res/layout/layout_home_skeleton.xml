@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Grey shimmering boxes shown while Home is loading. The tag on each box is its corner radius in dp. -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginTop="8dp"
+        android:tag="24" />
+
+    <View
+        android:layout_width="130dp"
+        android:layout_height="20dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="28dp"
+        android:tag="6" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingHorizontal="10dp"
+        android:paddingTop="12dp">
+
+        <View
+            android:layout_width="130dp"
+            android:layout_height="190dp"
+            android:layout_margin="6dp"
+            android:tag="18" />
+
+        <View
+            android:layout_width="130dp"
+            android:layout_height="190dp"
+            android:layout_margin="6dp"
+            android:tag="18" />
+
+        <View
+            android:layout_width="130dp"
+            android:layout_height="190dp"
+            android:layout_margin="6dp"
+            android:tag="18" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="100dp"
+        android:layout_height="20dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="24dp"
+        android:tag="6" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingHorizontal="10dp"
+        android:paddingTop="12dp">
+
+        <View
+            android:layout_width="130dp"
+            android:layout_height="190dp"
+            android:layout_margin="6dp"
+            android:tag="18" />
+
+        <View
+            android:layout_width="130dp"
+            android:layout_height="190dp"
+            android:layout_margin="6dp"
+            android:tag="18" />
+
+        <View
+            android:layout_width="130dp"
+            android:layout_height="190dp"
+            android:layout_margin="6dp"
+            android:tag="18" />
+    </LinearLayout>
+</LinearLayout>

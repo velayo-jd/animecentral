@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Loading placeholders (light mode) -->
+    <color name="ac_shimmer_base">#E4E4E4</color>
+    <color name="ac_shimmer_hi">#F7F7F7</color>
+</resources>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginHorizontal="16dp"
+    android:layout_marginTop="2dp"
+    android:layout_marginBottom="6dp"
+    android:orientation="horizontal">
+
+    <TextView
+        android:id="@+id/quick_surprise"
+        style="@style/AcDrawerQuick"
+        android:text="Surprise me" />
+
+    <TextView
+        android:id="@+id/quick_catalogue"
+        style="@style/AcDrawerQuick"
+        android:layout_marginHorizontal="8dp"
+        android:text="Catalogue" />
+
+    <TextView
+        android:id="@+id/quick_saved"
+        style="@style/AcDrawerQuick"
+        android:text="Saved" />
+</LinearLayout>

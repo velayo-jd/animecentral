@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/tag_text"
+    android:layout_width="wrap_content"
+    android:layout_height="34dp"
+    android:background="@drawable/ac_tag_pill"
+    android:clickable="true"
+    android:focusable="true"
+    android:gravity="center"
+    android:maxLines="1"
+    android:paddingHorizontal="16dp"
+    android:textColor="@color/ac_text_soft"
+    android:textSize="13sp"
+    android:textStyle="normal"
+    android:layout_marginEnd="12dp"
+    android:layout_marginBottom="10dp"/>

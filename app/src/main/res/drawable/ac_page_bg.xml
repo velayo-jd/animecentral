@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Background of the whole main screen area: the normal page colour with the moon glow on top.
+     Pages are see-through, so the glow shows behind the banner and posters. -->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:drawable="@color/ac_bg" />
+    <item
+        android:id="@+id/ac_glow_layer"
+        android:drawable="@drawable/ac_glow" />
+</layer-list>

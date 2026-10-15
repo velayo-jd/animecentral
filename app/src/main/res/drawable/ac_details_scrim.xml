@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Lets the blurred poster show at the very top, then fades it into the page background -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android" android:shape="rectangle">
+    <gradient
+        android:angle="270"
+        android:endColor="@color/ac_bg"
+        android:startColor="@color/ac_bg_clear"
+        android:type="linear" />
+</shape>
