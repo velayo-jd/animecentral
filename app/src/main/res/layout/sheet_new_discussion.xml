@@ -10,6 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Start a discussion"
+        android:id="@+id/new_thread_heading"
         android:textColor="@color/ac_text"
         android:textSize="20sp"
         android:textStyle="bold" />
@@ -57,6 +58,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="Contains spoilers"
+            android:id="@+id/new_thread_spoiler_row"
             android:textColor="@color/ac_text"
             android:textSize="14sp" />
 

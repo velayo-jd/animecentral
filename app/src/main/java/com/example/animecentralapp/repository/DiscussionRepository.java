@@ -29,8 +29,14 @@ public class DiscussionRepository {
     public interface ThreadCallback { void onResult(@Nullable Discussion thread); } // null = gone
     public interface Done { void onDone(boolean ok, @Nullable String error); }
 
-    private CollectionReference threads(String animeId) {
-        return FirebaseUtil.getFirestore().collection("anime").document(animeId)
+    /** Used where an anime id would go: means "the app-wide bug board" instead. */
+    public static final String BUGS = "__bugs__";
+
+    private CollectionReference threads(String scope) {
+        if (BUGS.equals(scope)) {
+            return FirebaseUtil.getFirestore().collection("bugReports");
+        }
+        return FirebaseUtil.getFirestore().collection("anime").document(scope)
                 .collection("discussions");
     }
 
@@ -51,6 +57,7 @@ public class DiscussionRepository {
         d.setUserPhotoUrl(u.getPhotoUrl() != null ? u.getPhotoUrl().toString() : null);
         d.setTimestamp(System.currentTimeMillis());
         d.setReplyCount(0);
+        if (BUGS.equals(animeId)) d.setStatus(com.example.animecentralapp.util.BugStatus.OPEN);
         return d;
     }
 
@@ -95,6 +102,12 @@ public class DiscussionRepository {
                     }
                     cb.onResult(list);
                 });
+    }
+
+    public void setStatus(String scope, String threadId, String status, Done done) {
+        threads(scope).document(threadId).update("status", status)
+                .addOnSuccessListener(v -> done.onDone(true, null))
+                .addOnFailureListener(e -> done.onDone(false, e.getMessage()));
     }
 
     public ListenerRegistration listenThread(String animeId, String threadId, ThreadCallback cb) {

@@ -40,7 +40,8 @@ public class DiscussionAdapter extends ListAdapter<Discussion, DiscussionAdapter
                             && Objects.equals(a.getBody(), b.getBody())
                             && a.isSpoiler() == b.isSpoiler()
                             && a.getReplyCount() == b.getReplyCount()
-                            && Objects.equals(a.getUsername(), b.getUsername());
+                            && Objects.equals(a.getUsername(), b.getUsername())
+                            && Objects.equals(a.getStatus(), b.getStatus());
                 }
             };
 
@@ -79,6 +80,12 @@ public class DiscussionAdapter extends ListAdapter<Discussion, DiscussionAdapter
                 b.discussionPreview.setVisibility(View.VISIBLE);
             }
             b.discussionSpoilerTag.setVisibility(d.isSpoiler() ? View.VISIBLE : View.GONE);
+            if (d.getStatus() != null && !d.getStatus().isEmpty()) {
+                b.discussionStatus.setVisibility(View.VISIBLE);
+                com.example.animecentralapp.util.BugStatus.style(b.discussionStatus, d.getStatus());
+            } else {
+                b.discussionStatus.setVisibility(View.GONE);
+            }
 
             String name = d.getUsername() == null || d.getUsername().isEmpty()
                     ? "Guest" : d.getUsername();

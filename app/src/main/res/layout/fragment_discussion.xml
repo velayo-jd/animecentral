@@ -53,6 +53,15 @@
                     android:visibility="gone" />
 
                 <TextView
+                    android:id="@+id/thread_status"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
+                    android:textSize="10sp"
+                    android:textStyle="bold"
+                    android:visibility="gone" />
+
+                <TextView
                     android:id="@+id/thread_meta"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -88,6 +97,56 @@
                     android:textSize="14sp"
                     android:visibility="gone" />
             </FrameLayout>
+
+            <LinearLayout
+                android:id="@+id/status_admin_row"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="14dp"
+                android:orientation="horizontal"
+                android:visibility="gone">
+
+                <TextView
+                    android:id="@+id/status_btn_open"
+                    android:layout_width="0dp"
+                    android:layout_height="36dp"
+                    android:layout_marginEnd="6dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/ac_genre_chip"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:gravity="center"
+                    android:text="Not solved"
+                    android:textColor="@color/ac_text_dim"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:id="@+id/status_btn_working"
+                    android:layout_width="0dp"
+                    android:layout_height="36dp"
+                    android:layout_marginEnd="6dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/ac_genre_chip"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:gravity="center"
+                    android:text="Working on it"
+                    android:textColor="@color/ac_text_dim"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:id="@+id/status_btn_fixed"
+                    android:layout_width="0dp"
+                    android:layout_height="36dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/ac_genre_chip"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:gravity="center"
+                    android:text="Fixed"
+                    android:textColor="@color/ac_text_dim"
+                    android:textSize="12sp" />
+            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"

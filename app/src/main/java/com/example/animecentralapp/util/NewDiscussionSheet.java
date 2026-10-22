@@ -23,6 +23,15 @@ public final class NewDiscussionSheet {
         SheetNewDiscussionBinding b = SheetNewDiscussionBinding.inflate(LayoutInflater.from(ctx));
         dialog.setContentView(b.getRoot());
 
+        boolean bug = DiscussionRepository.BUGS.equals(animeId);
+        if (bug) {
+            b.newThreadHeading.setText("Report a bug");
+            b.newThreadTitle.setHint("What went wrong? (short)");
+            b.newThreadBody.setHint("What did you do, what did you expect, and what happened instead?");
+            b.newThreadSpoilerRow.setVisibility(View.GONE);
+            b.newThreadPostBtn.setText("Send report");
+        }
+
         if (dialog.getWindow() != null) {
             dialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
         }
@@ -43,6 +52,20 @@ public final class NewDiscussionSheet {
             }
             Discussion thread = DiscussionRepository.newThread(
                     ctx, animeId, title, body, b.newThreadSpoiler.isChecked());
+            if (bug) {
+                if (body.isEmpty()) {
+                    b.newThreadBody.setError("Describe what happened");
+                    return;
+                }
+                // Handy for debugging: which build and phone this came from
+                String version = "?";
+                try {
+                    version = ctx.getPackageManager()
+                            .getPackageInfo(ctx.getPackageName(), 0).versionName;
+                } catch (Exception ignored) {}
+                body += "\n\n[App v" + version + "  ·  Android " + android.os.Build.VERSION.RELEASE
+                        + "  ·  " + android.os.Build.MODEL + "]";
+            }
             if (thread == null) {
                 Toast.makeText(ctx, "Sign in to start a discussion", Toast.LENGTH_SHORT).show();
                 return;

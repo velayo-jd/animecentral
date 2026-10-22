@@ -38,4 +38,8 @@ public class Discussion {
     public void setTimestamp(long timestamp) { this.timestamp = timestamp; }
     public int getReplyCount() { return replyCount; }
     public void setReplyCount(int replyCount) { this.replyCount = replyCount; }
+    private String status;   // bug reports only: "open", "working" or "fixed"
+
+    public String getStatus() { return status; }
+    public void setStatus(String status) { this.status = status; }
 }

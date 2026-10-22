@@ -82,6 +82,8 @@ public class SettingsFragment extends Fragment {
         addRow(binding.sectionTwoRows, "Check for updates",
                 pending != null ? "v" + pending + " available" : "›", this::checkForUpdates);
         // Section 2: About
+        addRow(binding.sectionTwoRows, "Report a bug", "›", () ->
+                NavHostFragment.findNavController(this).navigate(R.id.bug_reports));
         addRow(binding.sectionTwoRows, "Version", versionName(), null);
         addRow(binding.sectionTwoRows, "Credits", "›", () -> showInfo(
                 "Made By:",

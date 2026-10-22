@@ -7,6 +7,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import android.graphics.Typeface;
+import android.widget.TextView;
+import com.example.animecentralapp.util.BugStatus;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
@@ -34,7 +38,7 @@ public class DiscussionFragment extends Fragment {
     private final DiscussionRepository repo = new DiscussionRepository();
     private DiscussionReplyAdapter replyAdapter;
     private ListenerRegistration threadReg, repliesReg;
-
+    private boolean bugMode;   // true when this thread is on the bug board
     private String animeId, threadId;
     private boolean bodyRevealed = false;
     private boolean replySpoiler = false;
@@ -58,6 +62,11 @@ public class DiscussionFragment extends Fragment {
             NavHostFragment.findNavController(this).popBackStack();
             return;
         }
+        bugMode = DiscussionRepository.BUGS.equals(animeId);
+        if (bugMode) binding.replySpoilerToggle.setVisibility(View.GONE);   // no spoilers in bug reports
+        binding.statusBtnOpen.setOnClickListener(v -> changeStatus(BugStatus.OPEN));
+        binding.statusBtnWorking.setOnClickListener(v -> changeStatus(BugStatus.WORKING));
+        binding.statusBtnFixed.setOnClickListener(v -> changeStatus(BugStatus.FIXED));
 
         binding.topBar.menuBtn.setOnClickListener(v ->
                 ((MainActivity) requireActivity()).openDrawer());
@@ -121,12 +130,38 @@ public class DiscussionFragment extends Fragment {
         int n = d.getReplyCount();
         binding.threadRepliesCount.setText(n <= 0 ? "Replies" : n + (n == 1 ? " reply" : " replies"));
         binding.threadDeleteBtn.setVisibility(canModify(d.getUserId()) ? View.VISIBLE : View.GONE);
+
+        if (bugMode) {
+            String st = d.getStatus() == null ? BugStatus.OPEN : d.getStatus();
+            binding.threadStatus.setVisibility(View.VISIBLE);
+            BugStatus.style(binding.threadStatus, st);
+            binding.statusAdminRow.setVisibility(AdminAccess.isAdmin() ? View.VISIBLE : View.GONE);
+            markStatusButton(binding.statusBtnOpen, BugStatus.OPEN, st);
+            markStatusButton(binding.statusBtnWorking, BugStatus.WORKING, st);
+            markStatusButton(binding.statusBtnFixed, BugStatus.FIXED, st);
+        }
     }
 
     private boolean canModify(@Nullable String authorId) {
         if (AdminAccess.isAdmin()) return true;
         FirebaseUser u = FirebaseAuth.getInstance().getCurrentUser();
         return u != null && authorId != null && authorId.equals(u.getUid());
+    }
+
+    private void changeStatus(String status) {
+        repo.setStatus(animeId, threadId, status, (ok, error) -> {
+            if (!ok && getContext() != null) {
+                Toast.makeText(getContext(), "Couldn't change status: " + error,
+                        Toast.LENGTH_LONG).show();
+            }
+        });
+    }
+
+    private void markStatusButton(TextView tv, String thisStatus, String current) {
+        boolean on = thisStatus.equals(current);
+        tv.setTextColor(on ? BugStatus.color(thisStatus)
+                : ContextCompat.getColor(requireContext(), R.color.ac_text_dim));
+        tv.setTypeface(null, on ? Typeface.BOLD : Typeface.NORMAL);
     }
 
     // ---------- replying ----------
