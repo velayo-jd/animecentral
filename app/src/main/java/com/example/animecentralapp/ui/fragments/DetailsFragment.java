@@ -19,6 +19,15 @@ import android.view.animation.OvershootInterpolator;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import android.graphics.Typeface;
+import androidx.core.content.ContextCompat;
+import com.example.animecentralapp.model.Discussion;
+import com.example.animecentralapp.repository.DiscussionRepository;
+import com.example.animecentralapp.ui.adapters.DiscussionAdapter;
+import com.example.animecentralapp.util.NewDiscussionSheet;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.ListenerRegistration;
+
 import java.util.Locale;
 
 import androidx.annotation.NonNull;
@@ -67,6 +76,9 @@ public class DetailsFragment extends Fragment {
     private EpisodeAdapter episodeAdapter;
     private boolean synopsisExpanded = false;
     private boolean newestFirst = false;   // list display only; "episodes" stays in normal order
+    private boolean discussionTab = false;
+    private DiscussionAdapter discussionAdapter;
+    private ListenerRegistration discussionReg;
     private boolean transitionStarted = false;
 
     @Override
@@ -156,6 +168,7 @@ public class DetailsFragment extends Fragment {
                     newestFirst ? "Newest first" : "Oldest first", Toast.LENGTH_SHORT).show();
         });
         refreshStates();
+        setupDiscussion();
 
         // Swipe right = watched on/off, swipe left = bookmark on/off
         new ItemTouchHelper(new EpisodeSwipeCallback(requireContext(),
@@ -202,7 +215,7 @@ public class DetailsFragment extends Fragment {
         episodeViewModel.getEpisodes(animeId).observe(getViewLifecycleOwner(), list -> {
             episodes = list == null ? new ArrayList<>() : list;
             showEpisodes();
-            binding.noEpisodesText.setVisibility(episodes.isEmpty() ? View.VISIBLE : View.GONE);
+            applyTab();   // <-- was the noEpisodesText line; applyTab() sets that visibility itself
             binding.episodeCount.setText(episodes.isEmpty() ? "" : episodes.size() + " available");
             updateResume();
         });
@@ -288,6 +301,60 @@ public class DetailsFragment extends Fragment {
                     }
                 })
                 .into(binding.animePoster);
+    }
+
+    private void setupDiscussion() {
+        discussionAdapter = new DiscussionAdapter(thread -> {
+            Bundle b = new Bundle();
+            b.putString("animeId", animeId);
+            b.putString("threadId", thread.getId());
+            NavHostFragment.findNavController(this).navigate(R.id.discussion, b);
+        });
+        binding.threadsRecyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
+        binding.threadsRecyclerView.setAdapter(discussionAdapter);
+        binding.threadsRecyclerView.setNestedScrollingEnabled(false);
+
+        binding.tabEpisodes.setOnClickListener(v -> { discussionTab = false; applyTab(); });
+        binding.tabDiscussion.setOnClickListener(v -> { discussionTab = true; applyTab(); });
+        binding.newThreadBtn.setOnClickListener(v -> {
+            if (FirebaseAuth.getInstance().getCurrentUser() == null) {
+                Toast.makeText(requireContext(), "Sign in to start a discussion",
+                        Toast.LENGTH_SHORT).show();
+                return;
+            }
+            NewDiscussionSheet.show(requireContext(), animeId, null);
+        });
+
+        discussionReg = new DiscussionRepository().listenThreads(animeId, list -> {
+            if (binding == null) return;
+            discussionAdapter.submitList(list, this::applyTab);
+        });
+        applyTab();
+    }
+
+    /** Shows the Episodes or the Discussion content, depending on the selected tab. */
+    private void applyTab() {
+        if (binding == null) return;
+        boolean d = discussionTab;
+
+        binding.tabEpisodes.setTextColor(ContextCompat.getColor(requireContext(),
+                d ? R.color.ac_text_dim : R.color.ac_text));
+        binding.tabEpisodes.setTypeface(null, d ? Typeface.NORMAL : Typeface.BOLD);
+        binding.tabDiscussion.setTextColor(ContextCompat.getColor(requireContext(),
+                d ? R.color.ac_text : R.color.ac_text_dim));
+        binding.tabDiscussion.setTypeface(null, d ? Typeface.BOLD : Typeface.NORMAL);
+
+        int eps = d ? View.GONE : View.VISIBLE;
+        binding.episodeCount.setVisibility(eps);
+        binding.sortEpisodesBtn.setVisibility(eps);
+        binding.episodesRecyclerView.setVisibility(eps);
+        binding.addEpisodeBtn.setVisibility(!d && AdminAccess.isAdmin() ? View.VISIBLE : View.GONE);
+        binding.noEpisodesText.setVisibility(!d && episodes.isEmpty() ? View.VISIBLE : View.GONE);
+
+        binding.discussionSection.setVisibility(d ? View.VISIBLE : View.GONE);
+        binding.noThreadsText.setVisibility(
+                d && discussionAdapter != null && discussionAdapter.getItemCount() == 0
+                        ? View.VISIBLE : View.GONE);
     }
 
     private void startTransitionOnce() {
@@ -478,6 +545,7 @@ public class DetailsFragment extends Fragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
+        if (discussionReg != null) { discussionReg.remove(); discussionReg = null; }
         binding = null;
     }
 }

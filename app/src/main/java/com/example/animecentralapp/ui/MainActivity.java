@@ -9,6 +9,8 @@ import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import com.example.animecentralapp.util.AdminAccess;
+
 import com.example.animecentralapp.util.AvatarLoader;
 
 import androidx.activity.OnBackPressedCallback;
@@ -370,12 +372,14 @@ public class MainActivity extends AppCompatActivity {
         adminHolder.removeAllViews();
         if (!AdminAccess.isAdmin()) return;
         addSection(adminHolder, "Admin", R.drawable.ic_drawer_account,
-                new String[]{"Import from AniList"},
-                new Runnable[]{() -> goTo(R.id.import_anilist, null)});
+                new String[]{"Add anime", "Import from AniList"},
+                new Runnable[]{
+                        () -> goTo(R.id.add_anime, null),
+                        () -> goTo(R.id.import_anilist, null)});
     }
 
-    private void addSection(ViewGroup parent, String title, int iconRes,
-                            String[] labels, Runnable[] actions) {
+    private View addSection(ViewGroup parent, String title, int iconRes,
+                            String[] labels, Runnable[] actions) {   // was: void
         ItemDrawerDropdownBinding row = ItemDrawerDropdownBinding.inflate(
                 getLayoutInflater(), parent, false);
         row.dropdownTitle.setText(title);
@@ -398,6 +402,7 @@ public class MainActivity extends AppCompatActivity {
             row.dropdownBody.addView(link.getRoot());
         }
         parent.addView(row.getRoot());
+        return row.getRoot();   // <-- new
     }
 
     private static Bundle bundle(String key, String value) {

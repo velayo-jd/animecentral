@@ -152,8 +152,8 @@ public class HomeFragment extends Fragment {
             }
 
             @Override
-            public void onDetails(Anime anime) {
-                Motion.openDetails(HomeFragment.this, anime, null);
+            public void onDetails(Anime anime, View imageView) {
+                Motion.openDetails(HomeFragment.this, anime, imageView);
             }
         });
         LinearLayoutManager lm = new LinearLayoutManager(

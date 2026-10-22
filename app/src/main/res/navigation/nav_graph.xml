@@ -83,4 +83,8 @@
     <fragment
         android:id="@+id/add_anime"
         android:name="com.example.animecentralapp.ui.fragments.AddAnimeFragment" />
+
+    <fragment
+        android:id="@+id/discussion"
+        android:name="com.example.animecentralapp.ui.fragments.DiscussionFragment" />
 </navigation>

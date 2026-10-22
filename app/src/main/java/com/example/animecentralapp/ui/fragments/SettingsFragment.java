@@ -83,28 +83,21 @@ public class SettingsFragment extends Fragment {
                 pending != null ? "v" + pending + " available" : "›", this::checkForUpdates);
         // Section 2: About
         addRow(binding.sectionTwoRows, "Version", versionName(), null);
+        addRow(binding.sectionTwoRows, "Credits", "›", () -> showInfo(
+                "Made By:",
+                "Velayo, John Daniel\n"
+                        + "Sales, Eman\n"
+                        + "Te, Jozhuart Ivan\n"
+                        + "Zamora, Jeric\n"
+                        +"Vicenio, Rg"));
         addRow(binding.sectionTwoRows, "About Anime Central", "›", () -> showInfo(
                 "Anime Central",
-                "A school project: an Android anime streaming app built with Java, "
-                        + "Firebase, and Vimeo / Rumble players."));
+                "An Android anime streaming app built with Java, "
+                        + "Firebase, and Vimeo/Rumble/YT players."));
         addRow(binding.sectionTwoRows, "Video Sources", "›", () -> showInfo(
                 "Video Sources",
-                "Videos are played from Vimeo and Rumble. They are streamed from those "
+                "Videos are played from Vimeo, Rumble, and YouTube. They are streamed from those "
                         + "services and are not stored in this app."));
-        addRow(binding.sectionTwoRows, "Content Notice", "›", () -> showInfo(
-                "Content Notice",
-                "Only content that its owner has the right to share should be added to "
-                        + "this app."));
-        addRow(binding.sectionTwoRows, "Content Notice", "›", () -> showInfo(
-                "Content Notice",
-                "Only content that its owner has the right to share should be added to "
-                        + "this app."));
-
-        // Admin only: manual "Add anime" page
-        if (com.example.animecentralapp.util.AdminAccess.isAdmin()) {
-            addRow(binding.sectionTwoRows, "Add anime", "›", () ->
-                    NavHostFragment.findNavController(this).navigate(R.id.add_anime));
-        }
     }
 
     @Override

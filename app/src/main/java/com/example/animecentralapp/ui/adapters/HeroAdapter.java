@@ -21,7 +21,7 @@ public class HeroAdapter extends RecyclerView.Adapter<HeroAdapter.HeroViewHolder
 
     public interface Listener {
         void onWatch(Anime anime);
-        void onDetails(Anime anime);
+        void onDetails(Anime anime, View imageView);
     }
 
     private final List<Anime> items = new ArrayList<>();
@@ -97,8 +97,8 @@ public class HeroAdapter extends RecyclerView.Adapter<HeroAdapter.HeroViewHolder
                     .into(binding.heroImage);
 
             binding.heroWatch.setOnClickListener(v -> listener.onWatch(anime));
-            binding.heroDetails.setOnClickListener(v -> listener.onDetails(anime));
-            itemView.setOnClickListener(v -> listener.onDetails(anime));
+            binding.heroDetails.setOnClickListener(v -> listener.onDetails(anime, binding.heroImage));
+            itemView.setOnClickListener(v -> listener.onDetails(anime, binding.heroImage));
         }
     }
 }
